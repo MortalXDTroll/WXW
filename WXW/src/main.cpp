@@ -62,6 +62,9 @@ int main(void)
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        shader.use();
+        shader.setVec4("color", 0.5f, 0.5f, 0.3f, 1.0f);
+
         vao.bind();
         glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
