@@ -33,11 +33,11 @@ Texture2D& Texture2D::operator=(Texture2D&& other) noexcept {
 
 bool Texture2D::generate(
 	const char* texturePath,
-	bool flipVertically = true,
-	unsigned int ws = GL_REPEAT,
-	unsigned int wt = GL_REPEAT,
-	unsigned int fmin = GL_LINEAR,
-	unsigned int fmax = GL_LINEAR
+	bool flipVertically,
+	unsigned int ws,
+	unsigned int wt,
+	unsigned int fmin,
+	unsigned int fmax
 ) {
 	stbi_set_flip_vertically_on_load(flipVertically);
 
@@ -49,6 +49,7 @@ bool Texture2D::generate(
 
 	if (data == nullptr) {
 		std::cerr << "ERROR::TEXTURE::FAILED_TO_LOAD: " << texturePath << '\n';
+		return false;
 	}
 
 	GLenum format = GL_RGBA;
@@ -70,12 +71,12 @@ void Texture2D::generate(
 		unsigned int w,
 		unsigned int h,
 		unsigned char* data,
-		unsigned int int_format = GL_RGBA,
-		unsigned int img_format = GL_RGBA,
-		unsigned int ws = GL_REPEAT,
-		unsigned int wt = GL_REPEAT,
-		unsigned int fmin = GL_LINEAR,
-		unsigned int fmax = GL_LINEAR
+		unsigned int int_format,
+		unsigned int img_format,
+		unsigned int ws,
+		unsigned int wt,
+		unsigned int fmin,
+		unsigned int fmax
 	) {
 	if (w == 0 || h == 0) {
 		std::cerr << "ERROR::TEXTURE::INVALID_DIMENSIONS (0x0)\n";
