@@ -11,17 +11,29 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Core\game.cpp" />
+    <ClCompile Include="Source\Graphics\ebo.cpp" />
+    <ClCompile Include="Source\Core\resource_manager.cpp" />
+    <ClCompile Include="Source\Graphics\shader.cpp" />
+    <ClCompile Include="Source\Graphics\stb_image.cpp" />
+    <ClCompile Include="Source\Graphics\texture2D.cpp" />
+    <ClCompile Include="Source\Graphics\vao.cpp" />
+    <ClCompile Include="Source\Graphics\vbo.cpp" />
     <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\Globals\globals.cpp" />
-    <ClCompile Include="Source\Shaders\Utils\shaderLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Source\Shaders\SimpleFragmentShader.frag" />
-    <None Include="Source\Shaders\SimpleVertexShader.vert" />
+    <None Include="Source\Shaders\fshader.frag" />
+    <None Include="Source\Shaders\vshader.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Globals\globals.hpp" />
-    <ClInclude Include="Source\Shaders\Utils\shaderLoader.hpp" />
+    <ClInclude Include="Dependencies\Include\stb\stb_image.h" />
+    <ClInclude Include="Source\Core\game.hpp" />
+    <ClInclude Include="Source\Graphics\ebo.hpp" />
+    <ClInclude Include="Source\Core\resource_manager.hpp" />
+    <ClInclude Include="Source\Graphics\shader.hpp" />
+    <ClInclude Include="Source\Graphics\texture2D.hpp" />
+    <ClInclude Include="Source\Graphics\vao.hpp" />
+    <ClInclude Include="Source\Graphics\vbo.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E8D7D48F-7AB1-4260-BCEC-8CC11D9FBC01}</ProjectGuid>
