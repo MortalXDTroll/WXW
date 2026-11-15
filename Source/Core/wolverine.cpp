@@ -101,6 +101,21 @@ void Wolverine::update(float dt) {
             spinAngle = 0.0f;
         }
     }
+    timeSinceHit += dt;
+    if (slashCooldown > 0.0f) {
+        slashCooldown = std::max(0.0f, slashCooldown - dt);
+    }
+    if (hurtFlash > 0.0f) {
+        hurtFlash = std::max(0.0f, hurtFlash - dt * 4.0f);
+    }
+
+    if (hp > 0.0f && hp < maxHp) {
+        const float k = 0.45f;
+        const float tau = 1.8f;
+        float ramp = 1.0f - std::exp(-timeSinceHit / tau);
+        float dH = k * (maxHp - hp) * ramp * dt;
+        hp = std::min(maxHp, hp + dH);
+    }
 }
 
 void Wolverine::draw(const ShapeRenderer& renderer) const {
@@ -151,4 +166,16 @@ void Wolverine::draw(const ShapeRenderer& renderer) const {
 
     drawLeg(renderer, root, -3.0f, legSwing, frontKnee, skinBase, skinMid);
     drawArm(renderer, root, -4.0f, armSwing, skinBase, clawSilver, clawExtend);
+}
+
+float Wolverine::computeBerserkerDamage(float baseDamage) const {
+    float missingRatio = glm::clamp(1.0f - (hp / maxHp), 0.0f, 1.0f);
+    const float alpha = 1.8f;
+    return baseDamage * (1.0f + alpha * missingRatio * missingRatio);
+}
+
+void Wolverine::takeDamage(float amount) {
+    hp = std::max(0.0f, hp - amount);
+    timeSinceHit = 0.0f;
+    hurtFlash = 1.0f;
 }

@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\game.cpp" />
+    <ClCompile Include="Source\Core\drone.cpp" />
     <ClCompile Include="Source\Graphics\ebo.cpp" />
     <ClCompile Include="Source\Core\resource_manager.cpp" />
     <ClCompile Include="Source\Graphics\shader.cpp" />
@@ -21,7 +22,7 @@
     <ClCompile Include="Source\Graphics\texture2D.cpp" />
     <ClCompile Include="Source\Graphics\vao.cpp" />
     <ClCompile Include="Source\Graphics\vbo.cpp" />
-    <ClCompile Include="Source\Graphics\wolverine.cpp" />
+    <ClCompile Include="Source\Core\wolverine.cpp" />
     <ClCompile Include="Source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +34,7 @@
   <ItemGroup>
     <ClInclude Include="Dependencies\Include\stb\stb_image.h" />
     <ClInclude Include="Source\Core\game.hpp" />
+    <ClInclude Include="Source\Core\drone.hpp" />
     <ClInclude Include="Source\Graphics\ebo.hpp" />
     <ClInclude Include="Source\Core\resource_manager.hpp" />
     <ClInclude Include="Source\Graphics\shader.hpp" />
@@ -41,10 +43,14 @@
     <ClInclude Include="Source\Graphics\texture2D.hpp" />
     <ClInclude Include="Source\Graphics\vao.hpp" />
     <ClInclude Include="Source\Graphics\vbo.hpp" />
-    <ClInclude Include="Source\Graphics\wolverine.hpp" />
+    <ClInclude Include="Source\Core\wolverine.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Source\Assets\Textures\awesomeface.png" />
+    <Image Include="Source\Assets\Textures\floor.jpg" />
+    <Image Include="Source\Assets\Textures\lab_corridor.jpg" />
+    <Image Include="Source\Assets\Textures\lab_monitors.jpg" />
+    <Image Include="Source\Assets\Textures\lab_tank.jpg" />
     <Image Include="Source\Assets\Textures\wx.png" />
     <Image Include="Source\awesomeface.png" />
   </ItemGroup>

@@ -68,6 +68,7 @@ bool Texture2D::generate(
 	}
 	generate(static_cast<unsigned int>(w), static_cast<unsigned int>(h), data, format, format, ws, wt, fmin, fmax);
 	stbi_image_free(data);
+	std::cerr << "Successfully opened and generated texture: [" << texturePath << "]\n";
 	return true;
 }
 void Texture2D::generate(
