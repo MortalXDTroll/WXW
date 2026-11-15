@@ -46,13 +46,11 @@
     <ClInclude Include="Source\Core\wolverine.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Source\Assets\Textures\awesomeface.png" />
     <Image Include="Source\Assets\Textures\floor.jpg" />
     <Image Include="Source\Assets\Textures\lab_corridor.jpg" />
     <Image Include="Source\Assets\Textures\lab_monitors.jpg" />
     <Image Include="Source\Assets\Textures\lab_tank.jpg" />
     <Image Include="Source\Assets\Textures\wx.png" />
-    <Image Include="Source\awesomeface.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E8D7D48F-7AB1-4260-BCEC-8CC11D9FBC01}</ProjectGuid>
