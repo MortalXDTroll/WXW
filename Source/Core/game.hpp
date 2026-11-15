@@ -7,7 +7,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "../Graphics/sprite_renderer.hpp"
+#include "../Graphics/shape_renderer.hpp"
 #include "resource_manager.hpp"
+#include "../Graphics/wolverine.hpp"
 
 enum GameState {
     GAME_ACTIVE,
@@ -21,11 +23,13 @@ enum GameState {
 class Game
 {
     private:
-        std::unique_ptr<SpriteRenderer> renderer;
-
+        std::unique_ptr<SpriteRenderer> spriteRenderer;
+        std::unique_ptr<ShapeRenderer> shapeRenderer;
+        Wolverine player;
     public:
         GameState State;
         std::array<bool, 1024> Keys;
+        std::array<bool, 1024> KeysProcessed{};
         unsigned int width = 0;
         unsigned int height = 0;
         

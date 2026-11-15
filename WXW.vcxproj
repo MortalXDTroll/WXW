@@ -15,15 +15,19 @@
     <ClCompile Include="Source\Graphics\ebo.cpp" />
     <ClCompile Include="Source\Core\resource_manager.cpp" />
     <ClCompile Include="Source\Graphics\shader.cpp" />
+    <ClCompile Include="Source\Graphics\shape_renderer.cpp" />
     <ClCompile Include="Source\Graphics\sprite_renderer.cpp" />
     <ClCompile Include="Source\Graphics\stb_image.cpp" />
     <ClCompile Include="Source\Graphics\texture2D.cpp" />
     <ClCompile Include="Source\Graphics\vao.cpp" />
     <ClCompile Include="Source\Graphics\vbo.cpp" />
+    <ClCompile Include="Source\Graphics\wolverine.cpp" />
     <ClCompile Include="Source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Shaders\fshader.frag" />
+    <None Include="Source\Shaders\shape.frag" />
+    <None Include="Source\Shaders\shape.vert" />
     <None Include="Source\Shaders\vshader.vert" />
   </ItemGroup>
   <ItemGroup>
@@ -32,10 +36,12 @@
     <ClInclude Include="Source\Graphics\ebo.hpp" />
     <ClInclude Include="Source\Core\resource_manager.hpp" />
     <ClInclude Include="Source\Graphics\shader.hpp" />
+    <ClInclude Include="Source\Graphics\shape_renderer.hpp" />
     <ClInclude Include="Source\Graphics\sprite_renderer.hpp" />
     <ClInclude Include="Source\Graphics\texture2D.hpp" />
     <ClInclude Include="Source\Graphics\vao.hpp" />
     <ClInclude Include="Source\Graphics\vbo.hpp" />
+    <ClInclude Include="Source\Graphics\wolverine.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Source\Assets\Textures\awesomeface.png" />
