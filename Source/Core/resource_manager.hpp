@@ -20,7 +20,7 @@ class ResourceManager {
 		static Shader& loadShader(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name);
 		static Shader& getShader(std::string name);
 
-		static Texture2D& loadTexture(const char* file, bool alpha, std::string name);
+		static Texture2D& loadTexture(const char* file, std::string name);
 		static Texture2D& getTexture(std::string name);
 
 		static void clear();

@@ -45,10 +45,13 @@ bool Texture2D::generate(
 	int h = 0;
 	int nrChannels = 0;
 	
+	std::cerr << "Attempting to open: [" << texturePath << "]\n";
+
 	unsigned char* data = stbi_load(texturePath, &w, &h, &nrChannels, 0);
 
 	if (data == nullptr) {
-		std::cerr << "ERROR::TEXTURE::FAILED_TO_LOAD: " << texturePath << '\n';
+		std::cerr << "ERROR::TEXTURE::FAILED_TO_LOAD: " << texturePath
+			<< " | Reason: " << stbi_failure_reason() << '\n';
 		return false;
 	}
 

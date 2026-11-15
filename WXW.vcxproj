@@ -15,6 +15,7 @@
     <ClCompile Include="Source\Graphics\ebo.cpp" />
     <ClCompile Include="Source\Core\resource_manager.cpp" />
     <ClCompile Include="Source\Graphics\shader.cpp" />
+    <ClCompile Include="Source\Graphics\sprite_renderer.cpp" />
     <ClCompile Include="Source\Graphics\stb_image.cpp" />
     <ClCompile Include="Source\Graphics\texture2D.cpp" />
     <ClCompile Include="Source\Graphics\vao.cpp" />
@@ -31,9 +32,15 @@
     <ClInclude Include="Source\Graphics\ebo.hpp" />
     <ClInclude Include="Source\Core\resource_manager.hpp" />
     <ClInclude Include="Source\Graphics\shader.hpp" />
+    <ClInclude Include="Source\Graphics\sprite_renderer.hpp" />
     <ClInclude Include="Source\Graphics\texture2D.hpp" />
     <ClInclude Include="Source\Graphics\vao.hpp" />
     <ClInclude Include="Source\Graphics\vbo.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Source\Assets\Textures\awesomeface.png" />
+    <Image Include="Source\Assets\Textures\wx.png" />
+    <Image Include="Source\awesomeface.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E8D7D48F-7AB1-4260-BCEC-8CC11D9FBC01}</ProjectGuid>
@@ -87,6 +94,9 @@
     <PreBuildEvent>
       <Command>copy "$(ProjectDir)Dependencies\Binaries\glfw3.dll" "$(ProjectDir)$(ConfigurationName)"
 copy "$(ProjectDir)Dependencies\Binaries\glew32.dll" "$(ProjectDir)$(ConfigurationName)"
+
+xcopy /E /I /Y "$(ProjectDir)Source\Assets" "$(OutDir)Source\Assets"
+xcopy /E /I /Y "$(ProjectDir)Source\Shaders" "$(OutDir)Source\Shaders"
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>

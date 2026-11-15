@@ -28,7 +28,7 @@ class Texture2D {
 
 		bool generate(
 			const char* texturePath,
-			bool flipVertically = true,
+			bool flipVertically = false,
 			unsigned int ws = GL_REPEAT,
 			unsigned int wt = GL_REPEAT,
 			unsigned int fmin = GL_LINEAR,

@@ -1,18 +1,13 @@
 #version 330 core
+layout (location = 0) in vec4 vertex; // <vec2 position, vec2 texCoords>
 
-// Input vertex data, different for all executions of this shader.
-// The position variable has attribute position 0
-layout(location = 0) in vec3 vertexPos; 
+out vec2 TexCoords;
 
-// Add uniform variable for the transform matrix
-uniform mat4 transform;
+uniform mat4 model;
+uniform mat4 projection;
 
-void main(){
-
-    gl_Position.xyz = vertexPos;
-    gl_Position.w = 1.0;
-
-	// Apply the transform on the gl_Position => final position of each vertex
-	gl_Position = transform * gl_Position;
-
+void main()
+{
+    TexCoords = vertex.zw;
+    gl_Position = projection * model * vec4(vertex.xy, 0.0, 1.0);
 }

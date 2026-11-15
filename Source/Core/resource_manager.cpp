@@ -19,7 +19,7 @@ Shader& ResourceManager::getShader(std::string name)
     return Shaders.at(name);
 }
 
-Texture2D& ResourceManager::loadTexture(const char* file, bool alpha, std::string name)
+Texture2D& ResourceManager::loadTexture(const char* file, std::string name)
 {
     Texture2D texture;
     if(!texture.generate(file)) std::cerr << "WARNING::RESOURCE_MANAGER: Failed to load texture '" << name << "'\n";

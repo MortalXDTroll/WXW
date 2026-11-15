@@ -32,6 +32,9 @@ int main(void)
 		std::cerr << "Failed to initiate GLFW.\n";
 		return -1;
 	}
+	else {
+		std::cout << "Successfully initiated GLFW.\n";
+	}
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -48,6 +51,8 @@ int main(void)
 		std::cerr << "Failed to open GLFW window.\n";
 		glfwTerminate();
 		return -1;
+	} else {
+		std::cout << "Successfully opened GLFW window.\n";
 	}
 
 	glfwMakeContextCurrent(window);
@@ -57,6 +62,8 @@ int main(void)
 		std::cerr << "Failed to initialize GLEW\n";
 		glfwTerminate();
 		return -1;
+	} else {
+		std::cout << "Successfully initialized GLEW.\n";
 	}
 
 	glfwSetKeyCallback(window, key_callback);
