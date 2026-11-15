@@ -1,33 +1,28 @@
 cmake_minimum_required(VERSION 3.15)
 project(WXW LANGUAGES CXX)
 
-# Set C++ standard and compiler options
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Set paths
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/Source)
 set(SHADER_DIR ${SRC_DIR}/Shaders)
-set(DEPS_INCLUDE ${CMAKE_SOURCE_DIR}/Dependencies/Include)  # .h   files
-set(DEPS_LIB ${CMAKE_SOURCE_DIR}/Dependencies/Libraries)    # .lib files
-set(DEPS_BIN ${CMAKE_SOURCE_DIR}/Dependencies/Binaries)     # .dll files
+set(ASSETS_DIR ${SRC_DIR}/Assets)
+set(DEPS_INCLUDE ${CMAKE_SOURCE_DIR}/Dependencies/Include)
+set(DEPS_LIB ${CMAKE_SOURCE_DIR}/Dependencies/Libraries)
+set(DEPS_BIN ${CMAKE_SOURCE_DIR}/Dependencies/Binaries)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)
 
-# Find source files (they are all in this folder)
 file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS ${SRC_DIR}/*.cpp)
 add_executable(${PROJECT_NAME} ${SRC_FILES})
 
-# Set compiler warnings / colors
 add_compile_options(-Wall -Wno-deprecated -g)
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     add_compile_options(-fansi-escape-codes -fcolor-diagnostics)
 endif()
 
-# Add includes ---
 target_include_directories(${PROJECT_NAME} PRIVATE ${DEPS_INCLUDE})
 
-# Link dependencies based on OS
 if(WIN32)
     find_package(OpenGL REQUIRED)
     target_link_libraries(${PROJECT_NAME}
@@ -43,7 +38,6 @@ if(WIN32)
             POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_if_different
                     ${DLL_FILES} $<TARGET_FILE_DIR:${PROJECT_NAME}>
-            COMMENT "Copying runtime DLLs..."
         )
     endif()
 elseif(APPLE)
@@ -107,42 +101,18 @@ elseif(UNIX)
     )
 endif()
 
-# Copy shaders after build
-file(GLOB SHADER_FILES
-    "${SHADER_DIR}/*.vert"
-    "${SHADER_DIR}/*.frag"
+add_custom_target(sync_runtime_files ALL
+    COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${PROJECT_NAME}>/Source/Shaders"
+    COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${PROJECT_NAME}>/Source/Assets"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory "${SHADER_DIR}" "$<TARGET_FILE_DIR:${PROJECT_NAME}>/Source/Shaders"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory "${ASSETS_DIR}" "$<TARGET_FILE_DIR:${PROJECT_NAME}>/Source/Assets"
+    VERBATIM
 )
 
-add_custom_command(
-    TARGET ${PROJECT_NAME}
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            ${SHADER_FILES} $<TARGET_FILE_DIR:${PROJECT_NAME}>
-    COMMENT "Copying shader files to runtime directory..."
-)
-
-# Copy resources folder after build
-set(RESOURCES_DIR ${CMAKE_SOURCE_DIR}/Resources)
-
-if(IS_DIRECTORY "${RESOURCES_DIR}")
-    add_custom_command(
-        TARGET ${PROJECT_NAME}
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-                "${RESOURCES_DIR}" "$<TARGET_FILE_DIR:${PROJECT_NAME}>/Resources"
-        COMMENT "Copying Resources folder to output directory..."
-        VERBATIM
-    )
-endif()
-
-# run target (build + copy + execute)
 add_custom_target(run
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-            ${SHADER_DIR} $<TARGET_FILE_DIR:${PROJECT_NAME}>
     COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}
-    DEPENDS ${PROJECT_NAME}
+    DEPENDS ${PROJECT_NAME} sync_runtime_files
     WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
-    COMMENT "Running ${PROJECT_NAME}..."
 )
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
