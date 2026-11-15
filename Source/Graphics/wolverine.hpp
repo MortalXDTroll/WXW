@@ -5,8 +5,8 @@
 #include "shape_renderer.hpp"
 
 struct Wolverine {
-    glm::vec2 position{ 200.0f, 455.0f };
-    float groundY = 455.0f;
+    glm::vec2 position = glm::vec2(200.0f, 400.0f);
+    float groundY = 400.0f;
     float facing = 1.0f;
 
     float velocityX = 0.0f;
