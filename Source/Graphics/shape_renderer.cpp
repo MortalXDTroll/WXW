@@ -8,6 +8,7 @@ ShapeRenderer::ShapeRenderer(Shader& shader) : shader(shader) {
 }
 
 void ShapeRenderer::initRenderData() {
+    // Primitive building blocks for the humanoid and drone: three vertices make a triangle.
     constexpr std::array<float, 6> triVertices = {
          0.0f, -0.5f,
         -0.5f,  0.5f,
@@ -25,6 +26,7 @@ void ShapeRenderer::initRenderData() {
          0.5f,  0.5f
     };
 
+    // Two indexed triangles share four corner vertices to form a rectangular quad.
     constexpr std::array<unsigned int, 6> quadIndices = {
         0, 1, 2,
         0, 2, 3
@@ -40,6 +42,8 @@ void ShapeRenderer::initRenderData() {
     quadVAO.unbind();
     quadEBO.unbind();
 
+    // Approximate a filled circle with a center and a closed ring of 32 segments.
+    // drawCircle renders these vertices as a GL_TRIANGLE_FAN.
     constexpr int segments = 32;
     constexpr float twoPi = 6.28318530718f;
     std::array<float, (segments + 2) * 2> circleVertices{};

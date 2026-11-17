@@ -66,6 +66,7 @@ int main(void)
 		std::cout << "Successfully initialized GLEW.\n";
 	}
 
+	// User input: register the callback that records keyboard presses and releases.
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
@@ -81,6 +82,7 @@ int main(void)
 	while (!glfwWindowShouldClose(window))
 	{
 		deltaTime(dt, lastFrame);
+		// Dispatch pending keyboard events before processInput reads the saved key states.
 		glfwPollEvents();
 
 		// Manage player input
@@ -113,6 +115,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 	// When a player presses the escape key, we set the WindowShouldClose property to true, closing the application
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
+	// Store held/released keys for continuous movement; bounds-check before indexing Keys.
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)

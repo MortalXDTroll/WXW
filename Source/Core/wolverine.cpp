@@ -3,6 +3,8 @@
 #include <algorithm>
 
 namespace {
+    // Complex objects: transform each primitive relative to its parent body/joint.
+    // Translate to the pivot, rotate, offset to the part center, then scale its size.
     glm::mat4 makeLimb(const glm::mat4& parent, glm::vec2 pivot, float angle, glm::vec2 offset, glm::vec2 size) {
         glm::mat4 m = glm::translate(parent, glm::vec3(pivot, 0.0f));
         m = glm::rotate(m, angle, glm::vec3(0.0f, 0.0f, 1.0f));
@@ -10,6 +12,8 @@ namespace {
         return glm::scale(m, glm::vec3(size, 1.0f));
     }
 
+    // Build an articulated arm from circles (joints) and quads (arm segments/fist).
+    // All parts inherit the shoulder transform, so they move together when it swings.
     void drawArm(
         const ShapeRenderer& renderer,
         const glm::mat4& root,
@@ -34,6 +38,8 @@ namespace {
             fistJoint = glm::rotate(fistJoint, -45.0f, glm::vec3(0.0f, 0.0f, 1.0f));
             fistJoint = glm::translate(fistJoint, glm::vec3(0.0f, 16.0f, 0.0f));
 
+            // Three narrow triangles attached to the fist form the retractable claws.
+            // clawExtend scales their length as they extend or retract.
             float clawLen = 22.0f * clawExtend;
             for (int i = -1; i <= 1; ++i) {
                 glm::mat4 claw = makeLimb(
@@ -48,6 +54,8 @@ namespace {
         }
     }
 
+    // Build a leg from circular joints and rectangular thigh, shin and foot pieces.
+    // The knee transform inherits the hip transform, keeping the lower leg attached.
     void drawLeg(
         const ShapeRenderer& renderer,
         const glm::mat4& root,
@@ -138,6 +146,8 @@ void Wolverine::draw(const ShapeRenderer& renderer) const {
     float frontKnee = isSpinning ? 65.0f : (velocityX != 0.0f ? std::max(0.0f, -std::cos(runTime)) * 50.0f : 0.0f);
     float backKnee = isSpinning ? 45.0f : (velocityX != 0.0f ? std::max(0.0f, std::cos(runTime)) * 50.0f : 0.0f);
 
+    // A shared root positions, mirrors, scales and spins the complete humanoid.
+    // Every body part below inherits this transform.
     glm::vec2 spinCenter(0.0f, -22.0f);
     glm::mat4 root = glm::mat4(1.0f);
     root = glm::translate(root, glm::vec3(position.x, position.y + bobY, 0.0f));
@@ -146,6 +156,8 @@ void Wolverine::draw(const ShapeRenderer& renderer) const {
     root = glm::rotate(root, -spinAngle, glm::vec3(0.0f, 0.0f, 1.0f));
     root = glm::translate(root, glm::vec3(-spinCenter, 0.0f));
 
+    // Assemble Wolverine from back limbs, torso quads, a circular head, equipment,
+    // then front limbs. Drawing in this order makes the front parts overlap the back.
     drawLeg(renderer, root, 4.0f, -legSwing, backKnee, skinBack, skinBack);
     drawArm(renderer, root, 6.0f, isSpinning ? -20.0f : -armSwing, skinBack, clawSilver, clawExtend);
 

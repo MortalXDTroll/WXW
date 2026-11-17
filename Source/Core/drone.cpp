@@ -62,6 +62,8 @@ void Drone::draw(const ShapeRenderer& renderer) const {
     root = glm::translate(root, glm::vec3(position, 0.0f));
     root = glm::rotate(root, tiltAngle, glm::vec3(0.0f, 0.0f, 1.0f));
 
+    // Complex objects: the drone is a second composite object built from primitives.
+    // Four quad arms and triangular blades share the rotating rotorHub transform.
     glm::mat4 rotorHub = glm::rotate(root, bladeAngle, glm::vec3(0.0f, 0.0f, 1.0f));
     for (int i = 0; i < 4; ++i) {
         float armAngle = static_cast<float>(i) * 90.0f;
@@ -69,6 +71,8 @@ void Drone::draw(const ShapeRenderer& renderer) const {
         renderer.drawTriangle(makePart(rotorHub, glm::vec2(0.0f, 0.0f), armAngle, glm::vec2(0.0f, -40.0f), glm::vec2(14.0f, 12.0f)), bladeSilver);
     }
 
+    // Triangular armor pieces and three concentric circles form the body and sensor.
+    // They inherit root so the complete drone follows its position and tilt.
     renderer.drawTriangle(makePart(root, glm::vec2(0.0f, -22.0f), 0.0f, glm::vec2(0.0f, 0.0f), glm::vec2(26.0f, 14.0f)), darkArmor);
     renderer.drawTriangle(makePart(root, glm::vec2(0.0f, 22.0f), 180.0f, glm::vec2(0.0f, 0.0f), glm::vec2(26.0f, 14.0f)), darkArmor);
 

@@ -52,6 +52,7 @@ void Game::init()
 
 void Game::processInput(float dt)
 {
+    // User input: after defeat or victory, R resets the player, enemies, camera and game state.
     if (player.hp <= 0.0f || State == GAME_WIN) {
         if (Keys[GLFW_KEY_R]) {
             player = Wolverine();
@@ -63,6 +64,8 @@ void Game::processInput(float dt)
         return;
     }
 
+    // A/D set horizontal velocity while held; resetting it stops movement when released.
+    // Wolverine::update multiplies this velocity by frame time to move the player.
     player.velocityX = 0.0f;
     if (Keys[GLFW_KEY_A]) {
         player.velocityX = -260.0f;
@@ -71,6 +74,8 @@ void Game::processInput(float dt)
         player.velocityX = 260.0f;
     }
 
+    // E toggles claws once per press. KeysProcessed blocks repeated toggles while held;
+    // releasing E clears the latch so the next press can toggle again.
     if (Keys[GLFW_KEY_E] && !KeysProcessed[GLFW_KEY_E]) {
         player.clawsExtended = !player.clawsExtended;
         KeysProcessed[GLFW_KEY_E] = true;
@@ -79,6 +84,8 @@ void Game::processInput(float dt)
         KeysProcessed[GLFW_KEY_E] = false;
     }
 
+    // Space starts a spinning jump with upward velocity and extended claws.
+    // The isSpinning guard prevents restarting the move while it is already active.
     if (Keys[GLFW_KEY_SPACE] && !player.isSpinning) {
         player.isSpinning = true;
         player.velocityY = -600.0f;
